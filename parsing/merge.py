@@ -32,11 +32,11 @@ for i in range(len(autors_list)):
     if len(autors_list[i]) < 3 or len(titles_list[i]) < 3 or len(texts_list[i]) < 3:
         continue
 
-    out.write("|autors ")
+    out.write(" |autors ")
     out.write(autors_list[i].replace("\n", ""))
     out.write(" |title ")
     out.write(titles_list[i].replace("\n", ""))
-    out.write("|text ")
+    out.write(" |text ")
     out.write(texts_list[i].replace("\n", ""))
     out.write("\n")
 
