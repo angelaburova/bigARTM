@@ -29,7 +29,7 @@ theta = model_artm.get_theta()
 print model_artm.score_tracker["SparsityPhiScore"].last_value
 print model_artm.score_tracker["SparsityThetaScore"].last_value
 model_artm.regularizers.add(artm.SmoothSparsePhiRegularizer(name='SparsePhi', tau=-100, dictionary=my_dictionary))
-model_artm.regularizers['SparsePhi'].tau = -1*1e4
+model_artm.regularizers['SparsePhi'].tau = -2*1e4
 model_artm.fit_offline(batch_vectorizer=batch_vectorizer, num_collection_passes=15)
 
 for topic_name in model_artm.topic_names:

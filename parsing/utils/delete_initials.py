@@ -8,11 +8,11 @@ def newstr(arr):
             ss += arr[j]+' '
     return ss
 
-f = open('autors.txt', 'r')
+f = open('separate/autors.txt', 'r')
 lines = f.readlines()
 f.close()
 autors = []
-f2 = open('autors.txt', 'w+')
+f2 = open('separate/autors.txt', 'w+')
 for i in lines:
     autors = i.split()
     a = newstr(autors)

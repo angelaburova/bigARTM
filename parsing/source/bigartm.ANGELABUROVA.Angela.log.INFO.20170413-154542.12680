@@ -1,8 +1,0 @@
-Log file created at: 2017/04/13 15:45:42
-Running on machine: ANGELABUROVA
-Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
-I0413 15:45:42.575446 10532 c_interface.cc:102] Logging enabled to .
-I0413 15:45:42.577450 10532 c_interface.cc:246] Creating MasterModel (id=1)...
-E0413 15:45:42.578449 10532 c_interface.cc:59] DiskReadException :  File out.txt does not exist.
-I0413 15:45:42.619477 10532 c_interface.cc:345] Pass 98f5f458-f558-448d-8e9b-d59979808954 to void (__cdecl artm::core::MasterComponent::*)(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const & __ptr64) __ptr64
-I0413 15:45:42.619477 10532 c_interface.cc:309] Disposing MasterComponent (id=1)...

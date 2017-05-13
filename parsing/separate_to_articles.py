@@ -4,6 +4,7 @@ import os
 import re
 from string import punctuation
 
+
 path_separate = os.getcwd() + "\\separate"
 path_autors = path_separate + "\\autors.txt"
 path_titles = path_separate + "\\titles.txt"
@@ -24,24 +25,29 @@ def get_files(path):
                 print name
     return files_name
 
+def delete_pun(line):
+    pun = punctuation + u'-«'
+    for char in pun:
+        line = line.replace(char, u"")
+    line =line.lower()
+
+    line = re.sub(ur"\d", u'', line)
+    line = re.sub(ur" . ", u' ', line)
+    line = re.sub(ur"^. ", u' ', line)
+    line = re.sub(ur" .$", u' ', line)
+    line = re.sub(ur" .. ", u' ', line)
+    line = re.sub(ur"^.. ", u' ', line)
+    line = re.sub(ur" ..$", u' ', line)
+    line = re.sub(ur"^.$", u'', line)
+    line = re.sub(ur"^..$", u'', line)
+
+    return line
 
 def delete_short_word(text_input):
     text = []
 
     for i in range(len(text_input)):
-        for char in punctuation:
-            text_input[i] = text_input[i].replace(char, u"")
-        text_input[i] = text_input[i].lower()
-
-        text_input[i] = re.sub(ur"\d", u'', text_input[i])
-        text_input[i] = re.sub(ur" . ", u' ', text_input[i])
-        text_input[i] = re.sub(ur"^. ", u' ', text_input[i])
-        text_input[i] = re.sub(ur" .$", u' ', text_input[i])
-        text_input[i] = re.sub(ur" .. ", u' ', text_input[i])
-        text_input[i] = re.sub(ur"^.. ", u' ', text_input[i])
-        text_input[i] = re.sub(ur" ..$", u' ', text_input[i])
-        text_input[i] = re.sub(ur"^.$", u'', text_input[i])
-        text_input[i] = re.sub(ur"^..$", u'', text_input[i])
+        text_input[i] = delete_pun(text_input[i])
 
     i = 0
     while(i<len(text_input)):
@@ -65,19 +71,6 @@ def delete_short_word(text_input):
         text[i] = text[i].replace("\n", " ")
 
     return text
-
-def delete_marks():
-    file = open(path_texts, "r")
-    texts = file.read()
-    file2 = open(path_titles, "r")
-    titles = file2.read()
-    delete = re.compile(u'\W+?', re.UNICODE)
-    delete.sub("", texts)
-    delete.sub("", titles)
-    file_texts = open(path_texts, "w+")
-    file_titles = open(path_titles, "w+")
-    file_texts.write(texts)
-    file_titles.write(titles)
 
 def separate_to_articles():
     cur_path = os.getcwd() + "\\text"
@@ -149,23 +142,19 @@ def separate_to_articles():
                             title += (" " + lines[index].replace(u"\n", u" "))
                             index +=1
                         break
-                title = title.lower()
-                title = re.sub(ur"\d", u'', title)
+                title = delete_pun(title)
 
                 text = lines[title_end+1:end]
                 text_1 = delete_short_word(text)
 
-                #modality = [{"autor" : autor}, {"title" : title}, {"text" : text_1}]
-
                 file_1 = open(path_autors, "a")
                 file_1.write(autor.encode('utf-8') + "\n")
                 file_1 = open(path_titles, "a")
-                file_1.write(title.encode('utf-8') + "Анжела\n")
+                file_1.write(title.encode('utf-8') + "\n")
                 file_1 = open(path_texts, "a")
                 for i in range(len(text_1)):
                     file_1.write(text_1[i].encode('utf-8'))
-                file_1.write("Анжела\n")
-
+                file_1.write("\n")
 
 separate_to_articles()
-delete_marks()
+os.system('python utils/delete_initials.py')
