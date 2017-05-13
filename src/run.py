@@ -7,7 +7,7 @@ my_dictionary=artm.Dictionary()
 my_dictionary.gather(data_path=batch_vectorizer.data_path);
 
 T = 12
-model_artm = artm.ARTM(num_topics=T, topic_names=["sbj"+str(i) for i in range(T)], class_ids={"autors":0.3, "title":0.5, "text":0.1 })
+model_artm = artm.ARTM(num_topics=T, topic_names=["sbj"+str(i) for i in range(T)], class_ids={"autors":3, "title":5, "text":1 })
 model_artm.cache_theta=True
 model_artm.scores.add(artm.PerplexityScore(name='PerplexityScore', dictionary=my_dictionary))
 model_artm.scores.add(artm.SparsityPhiScore(name='SparsityPhiScore',class_id ='text'))
