@@ -1,0 +1,4 @@
+Log file created at: 2017/04/13 15:44:34
+Running on machine: ANGELABUROVA
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+E0413 15:44:34.883242 14112 c_interface.cc:59] DiskReadException :  File out.txt does not exist.
