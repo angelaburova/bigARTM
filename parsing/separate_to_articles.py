@@ -66,6 +66,19 @@ def delete_short_word(text_input):
 
     return text
 
+def delete_marks():
+    file = open(path_texts, "r")
+    texts = file.read()
+    file2 = open(path_titles, "r")
+    titles = file2.read()
+    delete = re.compile(u'\W+?', re.UNICODE)
+    delete.sub("", texts)
+    delete.sub("", titles)
+    file_texts = open(path_texts, "w+")
+    file_titles = open(path_titles, "w+")
+    file_texts.write(texts)
+    file_titles.write(titles)
+
 def separate_to_articles():
     cur_path = os.getcwd() + "\\text"
     files = get_files(cur_path)
@@ -155,3 +168,4 @@ def separate_to_articles():
 
 
 separate_to_articles()
+delete_marks()
