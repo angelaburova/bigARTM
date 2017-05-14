@@ -26,7 +26,7 @@ def get_files(path):
     return files_name
 
 def delete_pun(line):
-    pun = punctuation + u'-«'
+    pun = punctuation + u'∑∑°-«»'
     for char in pun:
         line = line.replace(char, u"")
     line =line.lower()

@@ -6,7 +6,7 @@ batch_vectorizer = artm.BatchVectorizer(data_path="out_batches", data_format='ba
 my_dictionary=artm.Dictionary()
 my_dictionary.gather(data_path=batch_vectorizer.data_path);
 
-T = 12
+T = 9
 model_artm = artm.ARTM(num_topics=T, topic_names=["sbj"+str(i) for i in range(T)], class_ids={"autors":3, "title":5, "text":1 })
 model_artm.cache_theta=True
 model_artm.scores.add(artm.PerplexityScore(name='PerplexityScore', dictionary=my_dictionary))
@@ -16,6 +16,10 @@ model_artm.scores.add(artm.TopTokensScore(name="top_words", num_tokens=15, class
 model_artm.initialize(dictionary=my_dictionary)#seed=-1 - error
 model_artm.num_document_passes=5
 model_artm.fit_offline(batch_vectorizer=batch_vectorizer, num_collection_passes=15)
+
+phi = model_artm.get_phi()
+phi.to_csv('regularization/phi.csv', header=True, sep=',', index=True, encoding='utf-8')
+
 plt.plot(model_artm.score_tracker["PerplexityScore"].value)
 for topic_name in model_artm.topic_names:
     print topic_name + ': ',
@@ -26,5 +30,4 @@ for topic_name in model_artm.topic_names:
 print model_artm.score_tracker["SparsityPhiScore"].last_value
 print model_artm.score_tracker["SparsityThetaScore"].last_value
 
-model_artm.save("my_model")
-
+model_artm.save("my_super_model")

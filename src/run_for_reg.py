@@ -1,9 +1,9 @@
 import artm
 
-T = 12
+T = 9
 batch_vectorizer = artm.BatchVectorizer(data_path="out_batches", data_format='batches')
 model_artm = artm.ARTM(num_topics=T, topic_names=["sbj"+str(i) for i in range(T)], class_ids={"autors": 3, "title": 5, "text": 1 })
-model_artm.load("my_model")
+model_artm.load("my_super_model")
 model_artm.cache_theta = True
 model_artm.scores.add(artm.SparsityPhiScore(name='SparsityPhiScore',class_id ='text'))
 model_artm.scores.add(artm.SparsityThetaScore(name='SparsityThetaScore'))
@@ -12,7 +12,7 @@ my_dictionary = artm.Dictionary()
 my_dictionary.gather(data_path=batch_vectorizer.data_path);
 
 model_artm.regularizers.add(artm.SmoothSparsePhiRegularizer(name='SparsePhi', tau=-100, dictionary=my_dictionary))
-model_artm.regularizers['SparsePhi'].tau = -4*1e4
+model_artm.regularizers['SparsePhi'].tau = -1*1e4
 model_artm.fit_offline(batch_vectorizer=batch_vectorizer, num_collection_passes=15)
 
 for topic_name in model_artm.topic_names:
