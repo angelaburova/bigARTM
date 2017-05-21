@@ -8,7 +8,7 @@ stop_file_name = os.getcwd() +"/../parsing/utils/stop5k.txt"
 model_artm = artm.ARTM(num_topics=T, topic_names=["sbj"+str(i) for i in range(T)], class_ids={"autors":3, "title":5, "text":1 })
 model_artm.prepare_data(path_out="out.txt", path_dict=dict_file_name, path_stop=stop_file_name) # prepare_data from the library. It can be used only one time.
 
-batch_vectorizer = artm.BatchVectorizer(data_path="C:\\Users\\Angela\\Desktop\\ML\\bigARTM-master\\bigARTM-master\\results\\old_files\\out_with_lemm_from_server.txt", data_format="vowpal_wabbit", target_folder="out_batches", batch_size=2000)
+batch_vectorizer = artm.BatchVectorizer(data_path="out.txt", data_format="vowpal_wabbit", target_folder="out_batches", batch_size=2000)
 batch_vectorizer = artm.BatchVectorizer(data_path="out_batches", data_format='batches')
 my_dictionary=artm.Dictionary()
 my_dictionary.gather(data_path=batch_vectorizer.data_path);
@@ -21,7 +21,7 @@ model_artm.scores.add(artm.TopTokensScore(name="top_words", num_tokens=15, class
 model_artm.initialize(dictionary=my_dictionary)
 model_artm.num_document_passes=5
 model_artm.fit_offline(batch_vectorizer=batch_vectorizer, num_collection_passes=15)
-#model_artm.fit_offline(batch_vectorizer=batch_vectorizer, num_collection_passes=15, dictionary=my_dictionary)
+model_artm.fit_offline(batch_vectorizer=batch_vectorizer, num_collection_passes=15, dictionary=my_dictionary)
 model_artm.save("my_super_model")
 
 for topic_name in model_artm.topic_names:
