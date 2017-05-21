@@ -6,7 +6,7 @@ dict_file_name = os.getcwd() + "/../parsing/utils/new_dict.txt"
 stop_file_name = os.getcwd() +"/../parsing/utils/stop5k.txt"
 
 model_artm = artm.ARTM(num_topics=T, topic_names=["sbj"+str(i) for i in range(T)], class_ids={"autors":3, "title":5, "text":1 })
-model_artm.prepare_data(path_out="out.txt", path_dict=dict_file_name, path_stop=stop_file_name)
+model_artm.prepare_data(path_out="out.txt", path_dict=dict_file_name, path_stop=stop_file_name) # prepare_data from the library. It can be used only one time.
 
 batch_vectorizer = artm.BatchVectorizer(data_path="out.txt", data_format="vowpal_wabbit", target_folder="out_batches", batch_size=2000)
 batch_vectorizer = artm.BatchVectorizer(data_path="out_batches", data_format='batches')
@@ -34,4 +34,4 @@ print model_artm.score_tracker["SparsityPhiScore"].last_value
 print model_artm.score_tracker["SparsityThetaScore"].last_value
 print
 
-model_artm.post_regularization()
+model_artm.post_regularization() # out post regulariztion. It can be commented
