@@ -96,6 +96,7 @@ def find_duplicates_in_coeff(table):
                             table[k][i][1] *= 0.3
     for col in range(len(table)):
         table[col].sort(key=for_sort, reverse=True)
+        table[col] = norm(table[col])
     return table
 
 def norm(col):
@@ -145,6 +146,17 @@ def print_top_words(table):
             print table[k][i][0] + " ",
         print
 
+
+def delete_noise(table):
+    n_col = len(table)
+
+    for i in range(n_col):
+        size = len(table[i])
+        for k in range(int(size*0.15), size):
+            table[i][k][0] = 0.0
+        table[i] = norm(table[i])
+    return table
+
 def post_regularization(model):
     file_for_read = "tmp_phi.csv"
     phi = model.get_phi()
@@ -161,6 +173,7 @@ def post_regularization(model):
     rev_table = find_top_words(table, names)
     rev_table = find_duplicates(rev_table)
     rev_table = find_duplicates_in_coeff(rev_table)
+    rev_table = delete_noise(rev_table)
     print_top_words(rev_table)
     print
     print find_sparse_for_out(rev_table)

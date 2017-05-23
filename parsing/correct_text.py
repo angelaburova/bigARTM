@@ -5,6 +5,7 @@ from shutil import copyfile
 dict_file_name = "utils/new_dict.txt"
 stop_file_name = "utils/stop5k.txt"
 
+
 def get_files(path):
     files_name = []
     print "geting files"
